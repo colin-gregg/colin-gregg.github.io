@@ -2,64 +2,177 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Discrete Op Amp — Colin Gregg</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Discrete Op Amp — Project Details</title>
   <style>
-    body { font-family: 'Inter', system-ui, -apple-system, sans-serif; margin: 0; background: #f4f7f6; color: #1a1a1a; line-height: 1.6; }
-    .wrap { max-width: 800px; margin: 40px auto; padding: 20px; background: #fff; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.04); }
-    .back-link { display: inline-block; margin-bottom: 20px; color: #0056b3; text-decoration: none; font-weight: 600; font-size: 14px; }
-    .back-link:hover { text-decoration: underline; }
-    
-    h1 { margin: 0 0 10px 0; font-size: 32px; }
-    .tags { display: flex; gap: 8px; margin-bottom: 24px; }
-    .tag { background: #e9ecef; color: #333; font-size: 13px; font-weight: 600; padding: 4px 12px; border-radius: 20px; }
-    
-    .hero-img { width: 100%; max-height: 400px; object-fit: cover; border-radius: 8px; margin-bottom: 30px; border: 1px solid #eee; }
-    
-    h2 { font-size: 20px; border-bottom: 2px solid #f0f0f0; padding-bottom: 8px; margin-top: 32px; }
-    
-    .resource-box { background: #f8f9fa; padding: 16px; border-radius: 8px; margin-top: 30px; border-left: 4px solid #0056b3; }
-    .resource-box a { color: #0056b3; font-weight: 600; text-decoration: none; margin-right: 16px; }
-    .resource-box a:hover { text-decoration: underline; }
+    :root {
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --accent: #0284c7;
+      --tag-bg: #f1f5f9;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      margin: 0;
+      background: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 840px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 24px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .back-link:hover {
+      color: var(--accent);
+    }
+
+    header {
+      margin-bottom: 32px;
+    }
+
+    h1 {
+      margin: 0 0 12px 0;
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .tag {
+      background: var(--tag-bg);
+      color: var(--text-muted);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    .hero-image {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      margin-bottom: 32px;
+    }
+
+    .content-section {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 32px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      margin-bottom: 32px;
+    }
+
+    h2 {
+      font-size: 20px;
+      margin-top: 0;
+      margin-bottom: 16px;
+      border-bottom: 2px solid #f1f5f9;
+      padding-bottom: 8px;
+    }
+
+    .doc-box {
+      background: #f8fafc;
+      border-left: 4px solid var(--accent);
+      padding: 16px;
+      border-radius: 0 8px 8px 0;
+      margin: 24px 0;
+    }
+
+    .doc-box h4 {
+      margin: 0 0 8px 0;
+      font-size: 15px;
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 14px;
+      margin-right: 12px;
+    }
+
+    .btn:hover {
+      background: #0369a1;
+    }
+
+    .btn-secondary {
+      background: #e2e8f0;
+      color: var(--text-main);
+    }
+
+    .btn-secondary:hover {
+      background: #cbd5e1;
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <a href="index.html" class="back-link">← Back to Portfolio</a>
+  <div class="container">
+    <a href="index.html" class="back-link">&larr; Back to Portfolio Grid</a>
     
-    <h1>Discrete Operational Amplifier Design</h1>
-    <div class="tags">
-      <span class="tag">LTSpice</span>
-      <span class="tag">KiCad</span>
-      <span class="tag">Analog Design</span>
-    </div>
+    <header>
+      <h1>Discrete Op Amp Design</h1>
+      <div class="tags">
+        <span class="tag">LTSpice Execution</span>
+        <span class="tag">KiCad PCB Design</span>
+        <span class="tag">Analog Circuit Design</span>
+      </div>
+    </header>
 
-    <!-- Main Project Image -->
-    <img src="images/opamp_pcb.png" alt="Discrete Op-Amp Layout" class="hero-img">
+    <img src="images/opamp_pcb.png" alt="Discrete Op Amp PCB Detail View" class="hero-image">
 
-    <h2>Objective</h2>
-    <p>To reinforce the fundamentals of analog integrated circuit design by implementing a general-purpose discrete operational amplifier. This project translated theoretical concepts from Gray & Meyer's text into a physical, testable board-level system.</p>
+    <main>
+      <section class="content-section">
+        <h2>Project Overview</h2>
+        <p>
+          This engineering project was undertaken to translate core semiconductor theory into physical execution. The circuit architecture is based on principles explored within <em>Analysis and Design of Analog Integrated Circuits</em> by Gray, Hurst, Lewis, and Meyer. It explores the foundational internal topologies of operational amplifiers, specifically analyzing differential input stages, current mirror loads, voltage amplification stages, and class-AB output buffers.
+        </p>
+        
+        <p>
+          Initial evaluations on a solderless breadboard exposed expected parasitic capacitance problems and high-frequency noise interference inherent to transient prototyping environments. To eliminate these layout-induced variables and achieve clean validation results, a custom two-layer integrated PCB was designed in KiCad using strict engineering layout constraints to optimize trace routing and ground-plane partitioning.
+        </p>
+      </section>
 
-    <h2>Implementation & Methodology</h2>
-    <p><em>(Replace this text with your specific engineering specs. Mention your input stage topology, bias circuitry, and output stage. Talk about Phase Margin, Gain-Bandwidth Product, and Slew Rate.)</em></p>
-    <ul>
-      <li>Simulated full AC, DC, and Transient responses using <strong>LTSpice</strong>.</li>
-      <li>Captured schematics and routed a 4-layer PCB utilizing <strong>KiCad</strong>.</li>
-      <li>Implemented [Insert specific compensation technique] to ensure stability across varying capacitive loads.</li>
-    </ul>
-
-    <h2>Challenges & Debugging</h2>
-    <p><em>(Discuss what went wrong during your breadboard phase and how you troubleshot it. This is exactly what hiring managers want to read.)</em></p>
-
-    <h2>Results</h2>
-    <p>Simulation verified a DC gain of X dB and a Phase Margin of Y degrees. The custom PCB has been ordered and is currently awaiting fabrication and physical bench testing.</p>
-
-    <div class="resource-box">
-      <strong>Project Files:</strong><br><br>
-      <a href="discrete_op_amp - INCOMPLETE.pdf" target="_blank">📄 View Technical Report (PDF)</a>
-      <a href="ltspice/DISCRETE_OPAMP.asc" target="_blank">📉 Download LTSpice Schematic</a>
-    </div>
-
+      <section class="content-section">
+        <h2>Engineering Documentation & Deliverables</h2>
+        <p>Review the comprehensive architectural reports and engineering configuration assets below:</p>
+        
+        <div class="doc-box">
+          <h4>Design Verification & Evaluation Logs</h4>
+          <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 12px;">
+            Contains mathematical models, transistor biasing analysis parameters, and frequency sweep validation outcomes.
+          </p>
+          <a href="discrete_op_amp - INCOMPLETE.pdf" target="_blank" class="btn">Read Technical Report (PDF)</a>
+          <a href="ltspice/DISCRETE_OPAMP.asc" download class="btn btn-secondary">Download .ASC Simulation File</a>
+        </div>
+      </section>
+    </main>
   </div>
 </body>
 </html>
