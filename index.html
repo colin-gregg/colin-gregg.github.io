@@ -5,114 +5,134 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Colin Gregg — EE Portfolio</title>
   <style>
-    body{font-family:system-ui, -apple-system, Arial;margin:0;background:#f7f9fc;color:#111}
-    .wrap{max-width:1080px;margin:32px auto;padding:20px}
-    header{display:flex;gap:16px;align-items:center}
-    .avatar{width:80px;height:80px;border-radius:10px;background:#ddd}
-    h1{margin:0;font-size:28px}
-    p.lead{margin:6px 0;color:#444}
-    .grid{display:grid;grid-template-columns:1fr 320px;gap:18px;margin-top:20px}
-    .card{background:#fff;padding:16px;border-radius:10px;box-shadow:0 8px 20px rgba(20,30,50,0.06)}
-    .projects{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .proj h3{margin:0 0 6px}
-    .meta{font-size:13px;color:#666}
-	.meta{font-size:13px;color:#666}
-	.proj-img{
-		display: block;
-		width:90%;
-		max-height: 160px;
-		object-fit: cover;
-		border-radius:6px;
-		margin-bottom:12px
-	}
-    a{color:#0b6ef6;text-decoration:none}
-    a{color:#0b6ef6;text-decoration:none}
-    @media(max-width:820px){
-      .grid{grid-template-columns:1fr}
-      .projects{grid-template-columns:1fr} /* <-- ADD THIS */
-    }
+    /* Global Styles */
+    body { font-family: 'Inter', system-ui, -apple-system, Arial, sans-serif; margin: 0; background: #f4f7f6; color: #1a1a1a; line-height: 1.5; }
+    .wrap { max-width: 1100px; margin: 40px auto; padding: 0 20px; }
+    a { color: #0056b3; text-decoration: none; transition: color 0.2s; }
+    a:hover { color: #003d82; }
+
+    /* Header Profile */
+    header { display: flex; gap: 24px; align-items: center; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px solid #e0e0e0; }
+    .avatar { width: 90px; height: 90px; border-radius: 12px; background: #ccc; flex-shrink: 0; }
+    h1 { margin: 0 0 8px 0; font-size: 32px; font-weight: 700; letter-spacing: -0.5px; }
+    p.lead { margin: 0; color: #4a4a4a; font-size: 16px; max-width: 800px; }
+    .nav-links { margin-top: 12px; font-weight: 500; font-size: 14px; }
+    .nav-links a { margin-right: 12px; }
+
+    /* Layout Grid */
+    .layout { display: grid; grid-template-columns: 1fr 300px; gap: 30px; }
+    .sidebar { background: #fff; padding: 24px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.04); align-self: start; }
+    .sidebar h3 { margin-top: 0; border-bottom: 2px solid #f0f0f0; padding-bottom: 8px; }
+
+    /* Gallery Grid */
+    .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
+
+    /* Project Cards */
+    .card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.04); transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; text-decoration: none; color: inherit; }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.1); cursor: pointer; }
+    
+    .proj-img { width: 100%; height: 180px; object-fit: cover; border-bottom: 1px solid #eee; background: #f9f9f9; }
+    .card-content { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
+    .card-content h3 { margin: 0 0 8px 0; font-size: 20px; color: #111; }
+    .card-content p { margin: 0 0 16px 0; font-size: 14px; color: #555; flex-grow: 1; }
+
+    /* Tool Tags */
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
+    .tag { background: #e9ecef; color: #333; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 20px; letter-spacing: 0.2px; }
+
+    /* Responsive */
+    @media(max-width: 850px) {
+      .layout { grid-template-columns: 1fr; }
+      header { flex-direction: column; text-align: center; }
+    }
   </style>
 </head>
 <body>
   <div class="wrap">
     <header>
-      <div class="avatar" aria-hidden="true"></div>
+      <div class="avatar" aria-label="Profile Picture"></div>
       <div>
         <h1>Colin Gregg</h1>
-        <p class="lead">Hi! My name is Colin, I am an Electrical Engineering Senior and I am very interested in analog / mixed-signal hardware design. I absolutely love to learn anything new and am very quick, passionate, and excited to create something meaningful!
-		</p>
-        <div style="margin-top:8px">
-          <a href="https://github.com/colin-gregg/colin-gregg.github.io/tree/main" target="_blank">GitHub</a> •
-          <a href="https://www.linkedin.com/in/colin-gregg" target="_blank">LinkedIn</a> •
-          <a href="pdfs/resume2.pdf" target="_blank">Resume (PDF)</a>
+        <p class="lead">Electrical Engineering graduate specializing in analog / mixed-signal hardware design. Bridging the gap between fundamental device physics and modern system-level integration.</p>
+        <div class="nav-links">
+          <a href="https://github.com/colin-gregg/colin-gregg.github.io/tree/main" target="_blank">GitHub</a> |
+          <a href="https://www.linkedin.com/in/colin-gregg" target="_blank">LinkedIn</a> |
+          <a href="resume.pdf" target="_blank">Resume (PDF)</a>
         </div>
       </div>
     </header>
 
-    <div class="grid">
-      <main class="card">
-        <h2 style="margin-top:0">Selected Projects</h2>
-        <div class="projects">
-          <!-- <article class="proj card" style="padding:12px">
-            <h3>(IN PROGRESS) Acoustic TX/RX and DoA Algorithm - Senior Design Project</h3>
-            <p>Design PCB to drive underwater acoustic transducer to generate signals are four distinct frequencies, as well as a Low Noise Amplifier to process signal generated by receiver for the incoming signals. Used an STM microcontroller to convert incoming signals to digital and run a DoA algorithm based on the MUSIC algorithm.</p>
-            <div class="meta">Tools: KiCad, MATLAB, LTSpice • <a href="pdfs/acoustic-pinger-report.pdf" target="_blank">Report (PDF)</a></div>
-          </article> -->
+    <div class="layout">
+      <main>
+        <h2 style="margin-top:0; margin-bottom: 20px;">Selected Projects</h2>
+        <div class="gallery">
 
-          <!-- <article class="proj card" style="padding:12px">
-            <h3>Hi-Fi Audio System</h3>
-            <p>Personal project to design tone, volume, and balance controls along with a power amplifier to play music from my laptop into two 3-way speakers.</p>
-            <div class="meta">Tools: LTSpice, KiCad • <a href="pdfs/audio-project-report.pdf" target="_blank">Report (PDF)</a></div>
-          </article> -->
+          <!-- Card 1: Discrete Op Amp -->
+          <a href="op-amp.html" class="card">
+            <img src="images/opamp_pcb.png" alt="discrete op-amp pcb" class="proj-img">
+            <div class="card-content">
+              <h3>Discrete Op Amp Design</h3>
+              <p>Designed and simulated a general-purpose discrete operational amplifier to reinforce analog fundamentals. Currently awaiting 4-layer PCB fabrication.</p>
+              <div class="tags">
+                <span class="tag">LTSpice</span>
+                <span class="tag">KiCad</span>
+                <span class="tag">PCB Design</span>
+              </div>
+            </div>
+          </a>
 
-		  <article class="proj card" style="padding:12px">
-            <h3>Discrete Op Amp</h3>
-			<img src="images/opamp_pcb.png" alt="discrete op-amp pcb" class="proj-img"
-            <p>This is a personal project I am doing to challenge myself to design a general-purpose discrete op amp.
-			Over the summer I had read 'Analysis and Design of Analog Integrated Circuits' by Gray, Hurst, Lewis, and Meyer, and wanted to create something that incorporated all that major fundamentals I had learned. 
-			I have also always been intrigued by the "building blocks" of our world, be it in physics or in technology so being able to take a deeper look into how op amps actually work after taking an introductory 
-			electronics course has been a really fun learning experience. I have a working simulation in LTSpice and a lot of handwork to back it up, but after mixed results on a breadboard I have made and ordered a PCB... awaiting arrival!
-		</p>
-            <div class="meta">Tools: LTSpice, KiCad • <a href="pdfs/discrete_op_amp - INCOMPLETE.pdf" target="_blank">Op Amp Report</a> • <a href="ltspice/DISCRETE_OPAMP.asc" target="_blank">opamp_schematic</a></div>
-          </article>
-		  
-		  <article class="proj card" style="padding:12px">
-            <h3>DSP Project Reports</h3>
-			<img src="images/dsp.png" alt="power spectral density" class="proj-img"
-            <p>Weekly project reports I completed for my Digital Signal Processing class. These include theoretical work and implementation in MATLAB of both FIR and IIR filters, the discrete time fourier transform using circular convolutions, the fast fourier transform, and determinig the power spectrcal density from the autocorrelation of a function.</p>
-            <div class="meta">Tools: MATLAB • <a href="pdfs/dsp_compute_psd.pdf" target="_blank">Find PSD Using FFT</a>	• <a href="pdfs/dsp_fir_filter_design.pdf" target="_blank">FIR Filter Design</a> • <a href="pdfs/dsp_quantization_filter.pdf" target="_blank">Compensation Filter</a> • <a href="pdfs/dsp_quantizer_snr.pdf" target="_blank">Quantizer SNR</a></div>
-          </article>
-		  
-		  <article class="proj card" style="padding:12px">
-            <h3>VLSI Design</h3>
-			<img src="images/vlsi.png" alt="binary division algo" class="proj-img"
-            <p>These are the two projects I had done while taking a VLSI Design course last year.
-			The first project uses shift registers to implement a serial adder, while the second project uses custom shift registers, muxes, and a carry-ripple adder to implement a binary division algorithm.
-			</p>
-            <div class="meta">Tools: Cadence Virtuoso • <a href="pdfs/vlsi_shift_register.pdf" target="_blank">Shift Register</a> • <a href="pdfs/vlsi_binary_divider.pdf" target="_blank">Binary Divider</a></div>
-          </article>
+          <!-- Card 2: DSP Reports -->
+          <a href="dsp.html" class="card">
+            <img src="images/dsp.png" alt="power spectral density" class="proj-img">
+            <div class="card-content">
+              <h3>Digital Signal Processing Algorithms</h3>
+              <p>Implemented FIR/IIR filters, Fast Fourier Transforms, and calculated power spectral density from autocorrelation functions.</p>
+              <div class="tags">
+                <span class="tag">MATLAB</span>
+                <span class="tag">Algorithm Design</span>
+                <span class="tag">Signal Analysis</span>
+              </div>
+            </div>
+          </a>
 
-          <article class="proj card" style="padding:12px">
-            <h3>RISC-V Control Unit</h3>
-			<img src="images/riscv.png" alt="final synthesis" class="proj-img"
-            <p>System Verilog implementation of a single-cycle RISC-V control unit; synthesized with Synopsys and performed static timing analysis. Produced testbenches and coverage reports. Lengthy semester-long report describing design methodology and iteration process, with verification steps performed along the way.</p>
-            <div class="meta">Tools: Verilog, Synopsys • <a href="pdfs/risc-v.pdf" target="_blank">RISC-V Control Unit</a></div>
-          </article>
+          <!-- Card 3: VLSI Design -->
+          <a href="vlsi.html" class="card">
+            <img src="images/vlsi.png" alt="binary division algo" class="proj-img">
+            <div class="card-content">
+              <h3>VLSI Layout & Logic Design</h3>
+              <p>Implemented a serial adder using shift registers and a binary division algorithm utilizing custom muxes and a carry-ripple adder.</p>
+              <div class="tags">
+                <span class="tag">Cadence Virtuoso</span>
+                <span class="tag">Layout</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Card 4: RISC-V -->
+          <a href="risc-v.html" class="card">
+            <img src="images/riscv.png" alt="final synthesis" class="proj-img">
+            <div class="card-content">
+              <h3>RISC-V Single-Cycle Control Unit</h3>
+              <p>Synthesized an RTL implementation of a single-cycle control unit. Performed static timing analysis and generated full coverage reports.</p>
+              <div class="tags">
+                <span class="tag">SystemVerilog</span>
+                <span class="tag">Synopsys</span>
+                <span class="tag">STA</span>
+              </div>
+            </div>
+          </a>
 
         </div>
       </main>
 
-      <aside class="card">
-        <h3 style="margin-top:0">Contact & Files</h3>
-        <p><strong>Email:</strong> <a href="mailto:colingregg03@gmail.com">colingregg03@gmail.com</a></p>
-        <p><strong>LTSpice files:</strong> <a href="ltspice/" target="_blank">ltspice/ (folder)</a> — download .asc files to open in LTSpice.</p>
-        <p><strong>Notes:</strong> PDFs are in <code>pdfs/</code>. If a PDF doesn’t display inline on some browsers, it will download instead.</p>
+      <aside class="sidebar">
+        <h3>Contact & Resources</h3>
+        <p><strong>Email:</strong> <br><a href="mailto:colingregg03@gmail.com">colingregg03@gmail.com</a></p>
+        <hr style="border: 0; border-top: 1px solid #eee; margin: 16px 0;">
+        <p><strong>Simulation Files:</strong><br> Download <a href="ltspice/" target="_blank">LTSpice (.asc)</a> files to view schematics and run simulations locally.</p>
+        <p><strong>Documentation:</strong><br> All comprehensive project reports and PDF documentation can be downloaded directly from the individual project pages.</p>
       </aside>
     </div>
   </div>
 </body>
 </html>
-
-
-
-
