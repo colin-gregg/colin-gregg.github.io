@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Discrete Op Amp — Project Details</title>
+  <style>
+    :root {
+      --bg-color: #f4f7f6;
+      --card-bg: #ffffff;
+      --text-main: #1a1a1a;
+      --text-muted: #555555;
+      --accent-violet: #8b5cf6;
+      --accent-turquoise: #14b8a6;
+      --accent-blue: #0056b3;
+    }
+
+    body { font-family: 'Inter', system-ui, -apple-system, sans-serif; margin: 0; background: var(--bg-color); color: var(--text-main); line-height: 1.6; }
+    
+    /* Wider container for two-column text */
+    .wrap { max-width: 1000px; margin: 40px auto; padding: 0 24px; }
+    
+    /* Blue back link from Design 2 */
+    .back-link { display: inline-block; margin-bottom: 24px; color: var(--accent-blue); text-decoration: none; font-weight: 600; font-size: 15px; }
+    .back-link:hover { text-decoration: underline; }
+    
+    /* Header area */
+    h1 { margin: 0 0 16px 0; font-size: 36px; font-weight: 800; }
+    .tags { display: flex; gap: 8px; margin-bottom: 24px; }
+    .tag { background: #e9ecef; color: #333; font-size: 13px; font-weight: 600; padding: 6px 14px; border-radius: 20px; }
+    
+    /* Themed Image Wrapper */
+    .hero-img-wrapper {
+      background: #f3e8ff;
+      padding: 16px;
+      border-radius: 16px;
+      margin-bottom: 40px;
+      border-bottom: 4px solid var(--accent-violet);
+    }
+    .hero-img { width: 100%; max-height: 450px; object-fit: contain; border-radius: 8px; background: #fff; display: block; }
+    
+    /* Individual Content Boxes instead of dashed lines */
+    .section-box {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 32px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+      border-top: 4px solid var(--accent-turquoise); /* CRT accent for sections */
+    }
+    .section-box h2 { margin-top: 0; font-size: 22px; border-bottom: 2px solid #f0f0f0; padding-bottom: 12px; margin-bottom: 20px; }
+    
+    /* Two-column layout for report text */
+    .two-column-text {
+      column-count: 2;
+      column-gap: 40px;
+      text-align: justify;
+    }
+    .two-column-text p { margin-top: 0; }
+    
+    /* Design 2 Project Files Box */
+    .doc-box {
+      background: #f8fafc;
+      border-left: 4px solid var(--accent-violet);
+      padding: 24px;
+      border-radius: 0 12px 12px 0;
+      margin-top: 32px;
+    }
+    .doc-box h4 { margin: 0 0 12px 0; font-size: 18px; }
+    .doc-box p { font-size: 14px; color: var(--text-muted); margin-bottom: 16px; }
+    
+    .btn {
+      display: inline-block; background: var(--accent-violet); color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px; margin-right: 12px; transition: background 0.2s;
+    }
+    .btn:hover { background: #7c3aed; color: white; text-decoration: none;}
+    .btn-secondary { background: #e2e8f0; color: var(--text-main); }
+    .btn-secondary:hover { background: #cbd5e1; }
+
+    @media(max-width: 800px) {
+      .two-column-text { column-count: 1; text-align: left; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <a href="index.html" class="back-link">&larr; Back to Portfolio Grid</a>
+    
+    <header>
+      <h1>Discrete Operational Amplifier Design</h1>
+      <div class="tags">
+        <span class="tag">LTSpice Execution</span>
+        <span class="tag">KiCad PCB Design</span>
+        <span class="tag">Analog Circuit Design</span>
+      </div>
+    </header>
+
+    <div class="hero-img-wrapper">
+      <img src="images/opamp_pcb.png" alt="Discrete Op-Amp Layout" class="hero-img">
+    </div>
+
+    <div class="section-box">
+      <h2>Project Overview & Objective</h2>
+      <div class="two-column-text">
+        <p>This engineering project was undertaken to translate core semiconductor theory into physical execution. The circuit architecture is based on principles explored within <em>Analysis and Design of Analog Integrated Circuits</em> by Gray, Hurst, Lewis, and Meyer.</p>
+        <p>It explores the foundational internal topologies of operational amplifiers, specifically analyzing differential input stages, current mirror loads, voltage amplification stages, and class-AB output buffers. To reinforce these fundamentals, the project was designed entirely from discrete components rather than utilizing pre-packaged ICs.</p>
+      </div>
+    </div>
+
+    <div class="section-box">
+      <h2>Implementation & Challenges</h2>
+      <div class="two-column-text">
+        <p>Initial evaluations on a solderless breadboard exposed expected parasitic capacitance problems and high-frequency noise interference inherent to transient prototyping environments. The long lead lengths created unintended antennas, leading to severe oscillation in the high-gain stages.</p>
+        <p>To eliminate these layout-induced variables and achieve clean validation results, a custom four-layer integrated PCB was designed in KiCad. This allowed for strict engineering layout constraints, optimizing trace routing to reduce parasitics, and implementing a proper continuous ground-plane to shield against EMI.</p>
+      </div>
+    </div>
+
+    <div class="section-box" style="border-top-color: var(--accent-violet);">
+      <h2>Engineering Documentation & Deliverables</h2>
+      <p>Simulation verified a DC gain of X dB and a Phase Margin of Y degrees. The custom PCB has been ordered and is currently awaiting fabrication and physical bench testing. Review the comprehensive architectural reports below:</p>
+      
+      <div class="doc-box">
+        <h4>Design Verification & Evaluation Logs</h4>
+        <p>Contains mathematical models, transistor biasing analysis parameters, and frequency sweep validation outcomes.</p>
+        <a href="discrete_op_amp - INCOMPLETE.pdf" target="_blank" class="btn">Read Technical Report (PDF)</a>
+        <a href="ltspice/DISCRETE_OPAMP.asc" download class="btn btn-secondary">Download ASC Simulation File</a>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
