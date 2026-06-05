@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Colin Gregg — EE Portfolio</title>
   <style>
-    /* Global Theme & Variables - Light Purple/Violet Accents */
+    /* Global Theme & Variables */
     :root {
-      --bg-color: #fcfbfe;
+      --bg-color: #f8fafc; /* Updated to a clean light grey matching Design 2 */
       --card-bg: #ffffff;
       --text-main: #1a1523;
       --text-muted: #5a5266;
-      --accent-color: #6d28d9; /* Deep Premium Violet */
+      --accent-color: #6d28d9; 
       --accent-hover: #4c1d95;
-      --theme-bg-light: #f5f3ff; /* Soft Violet Tint for Headers/Borders */
+      --theme-bg-light: #f5f3ff; 
       --card-border: #e9e3f5;
     }
 
@@ -40,28 +40,41 @@
       color: var(--accent-hover); 
     }
 
-    /* Header Profile - Styled from Design 1 with Theme Accent Box */
+    /* Header Profile - Height optimized with an automatic adjusting profile image */
     header { 
       display: flex; 
       gap: 28px; 
-      align-items: center; 
-      margin-bottom: 48px;
-      padding: 32px; 
+      align-items: stretch; /* Forces image container height to match text content height exactly */
+      margin-bottom: 40px;
+      padding: 20px 32px; /* Reduced vertical padding to maximize grid real estate on load */
       background: var(--theme-bg-light);
       border-radius: 16px;
       border: 1px solid var(--card-border);
     }
     
-    .avatar { 
-      width: 90px; 
-      height: 90px; 
-      border-radius: 16px; 
+    .profile-img-container {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+    }
+
+    .profile-img {
+      height: 100%;
+      width: auto; /* Width scales dynamically to the uploaded image aspect ratio */
+      max-height: 110px; /* Safeguard ceiling height to match text metrics */
+      border-radius: 12px; 
+      object-fit: cover;
       background: #cbd5e1; 
-      flex-shrink: 0; 
     }
     
+    .header-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
     h1 { 
-      margin: 0 0 8px 0; 
+      margin: 0 0 6px 0; 
       font-size: 32px; 
       font-weight: 700; 
       letter-spacing: -0.5px; 
@@ -70,12 +83,12 @@
     p.lead { 
       margin: 0; 
       color: var(--text-muted); 
-      font-size: 16px; 
+      font-size: 15px; 
       max-width: 850px; 
     }
     
     .nav-links { 
-      margin-top: 14px; 
+      margin-top: 10px; 
       font-weight: 600; 
       font-size: 14px; 
     }
@@ -99,13 +112,13 @@
       margin-bottom: 64px; 
     }
 
-    /* Project Cards - Design 1 Typography with Design 2 Colored Border Concept */
+    /* Project Cards - Updated with a Cathode Ray Tube green/turquoise hover effect */
     .card { 
       background: var(--card-bg); 
-      border-radius: 16px; /* Smooth rounded edges */
+      border-radius: 16px; 
       overflow: hidden; 
-      box-shadow: 0 4px 14px rgba(109, 40, 217, 0.04); 
-      transition: transform 0.25s est, box-shadow 0.25s ease, border-color 0.25s ease; 
+      box-shadow: 0 4px 14px rgba(109, 40, 217, 0.03); 
+      transition: transform 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease; 
       display: flex; 
       flex-direction: column; 
       text-decoration: none; 
@@ -115,22 +128,26 @@
     
     .card:hover { 
       transform: translateY(-5px); 
-      box-shadow: 0 12px 24px rgba(109, 40, 217, 0.08); 
-      border-color: #c4b5fd;
+      background-color: #f0fdfa; /* Subtle CRT green/turquoise color hue background */
+      box-shadow: 0 12px 24px rgba(20, 184, 166, 0.18); /* Soft glowing turquoise drop-shadow */
+      border-color: #99f6e4; /* Light turquoise border accent */
       cursor: pointer; 
     }
 
-    /* Compact Themed Image Frame Wrapper */
     .card-img-wrapper {
-      padding: 14px 14px 0 14px; /* Balanced border thickness */
-      background: var(--theme-bg-light); /* Soft violet theme background frame */
+      padding: 14px 14px 0 14px; 
+      background: var(--theme-bg-light); 
       border-bottom: 1px solid var(--card-border);
+      transition: background-color 0.25s ease;
+    }
+    .card:hover .card-img-wrapper {
+      background: #ccfbf1; /* Matches CRT theme on hover inside the image window */
     }
     
     .proj-img {
       width: 100%;
       height: 170px; 
-      object-fit: contain; /* Full unclipped schematics */
+      object-fit: contain; 
       border-radius: 10px; 
       background: #ffffff; 
       box-shadow: inset 0 0 0 1px rgba(0,0,0,0.03);
@@ -158,7 +175,6 @@
       line-height: 1.6;
     }
 
-    /* Tool Tags - Pills Style */
     .tags { 
       display: flex; 
       flex-wrap: wrap; 
@@ -173,13 +189,12 @@
       font-weight: 600; 
       padding: 4px 12px; 
       border-radius: 8px; 
-      letter-spacing: 0.1px; 
     }
 
     .view-details {
       font-size: 14px;
       font-weight: 600;
-      color: #0056b3; /* Design 1 Blue Link style */
+      color: #0056b3; 
       margin-top: auto;
       display: flex;
       align-items: center;
@@ -188,7 +203,6 @@
       text-decoration: underline;
     }
 
-    /* Footer Integration (Consolidated Sidebar) */
     footer {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -215,7 +229,8 @@
     }
 
     @media(max-width: 850px) {
-      header { flex-direction: column; text-align: center; gap: 16px; }
+      header { flex-direction: column; text-align: center; gap: 16px; align-items: center; }
+      .profile-img { height: 110px; width: 110px; }
       .gallery { grid-template-columns: 1fr; }
       footer { grid-template-columns: 1fr; }
     }
@@ -224,10 +239,12 @@
 <body>
 
 <div class="wrap">
-  <!-- Profile Header -->
+  <!-- Profile Header Box -->
   <header>
-    <div class="avatar" aria-label="Profile Picture"></div>
-    <div>
+    <div class="profile-img-container">
+      <img src="images/profile.jpg" alt="Colin Gregg" class="profile-img">
+    </div>
+    <div class="header-text">
       <h1>Colin Gregg</h1>
       <p class="lead">Electrical Engineering graduate specializing in analog / mixed-signal hardware design. Bridging the gap between fundamental device physics and modern system-level integration.</p>
       <div class="nav-links">
@@ -238,7 +255,7 @@
     </div>
   </header>
 
-  <!-- Main Content Space -->
+  <!-- Projects Grid Layer -->
   <main>
     <h2 class="section-title">Selected Projects</h2>
     <div class="gallery">
@@ -260,7 +277,7 @@
         </div>
       </a>
 
-      <!-- Card 2: DSP Reports -->
+      <!-- Card 2: DSP -->
       <a href="project-dsp.html" class="card">
         <div class="card-img-wrapper">
           <img src="images/dsp.png" alt="power spectral density plot" class="proj-img">
@@ -313,7 +330,6 @@
     </div>
   </main>
 
-  <!-- Foot-based Contact & Resources -->
   <footer>
     <div>
       <h3>Contact Information</h3>
