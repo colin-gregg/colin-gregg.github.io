@@ -6,12 +6,12 @@
   <title>Discrete Op Amp Design — Details</title>
   <style>
     :root {
-      --bg-color: #fcfbfe;
+      --bg-color: #f8fafc; /* Standardized to match the light grey background */
       --card-bg: #ffffff;
       --text-main: #1a1523;
       --text-muted: #5a5266;
       --accent-color: #6d28d9;
-      --link-blue: #0284c7; /* Clear blue color from Design 2 */
+      --link-blue: #0284c7; 
       --theme-bg-light: #f5f3ff;
       --card-border: #e9e3f5;
     }
@@ -25,15 +25,14 @@
     }
 
     .container { 
-      max-width: 1240px; 
+      max-width: 1280px; 
       margin: 40px auto; 
       padding: 0 24px; 
     }
 
-    /* Back link styling matching Design 2 color */
     .back-link { 
       display: inline-block; 
-      margin-bottom: 24px; 
+      margin-bottom: 20px; 
       color: var(--link-blue); 
       text-decoration: none; 
       font-weight: 600; 
@@ -44,7 +43,7 @@
     }
 
     header { 
-      margin-bottom: 32px; 
+      margin-bottom: 24px; 
     }
 
     h1 { 
@@ -57,7 +56,7 @@
     .tags { 
       display: flex; 
       gap: 8px; 
-      margin-bottom: 24px; 
+      margin-bottom: 0; 
     }
     
     .tag { 
@@ -69,32 +68,45 @@
       border-radius: 8px; 
     }
 
-    /* WIDER TWO-COLUMN SYSTEM LAYOUT */
+    /* SPLIT SYSTEM GRID */
     .project-grid {
       display: grid;
-      grid-template-columns: 1.1fr 1.2fr;
-      gap: 32px;
+      grid-template-columns: 1.15fr 1.2fr;
+      gap: 40px;
       align-items: start;
+      margin-top: 24px;
     }
 
-    /* Left Column Elements (Visuals and Files) */
-    .visual-sticky {
+    /* Left Side - Locks completely fixed while right side content tracks window scrolling */
+    .left-panel-fixed {
       position: sticky;
-      top: 24px;
+      top: 40px;
+      max-height: calc(100vh - 80px);
+      overflow-y: auto; /* Fallback safety mechanism for small viewport windows */
+      padding-right: 4px;
+    }
+    
+    /* Custom hidden scrollbar styling for left column if window layout compresses */
+    .left-panel-fixed::-webkit-scrollbar { width: 0px; background: transparent; }
+
+    /* Stacked Image Gallery Frame Container */
+    .image-gallery {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 24px;
     }
 
     .hero-img { 
       width: 100%; 
-      max-height: 450px; 
+      max-height: 260px; /* Optimized image height bounds to host two graphics smoothly */
       object-fit: contain; 
       border-radius: 14px; 
-      margin-bottom: 24px; 
       border: 1px solid var(--card-border); 
       background: #ffffff;
       box-shadow: 0 4px 12px rgba(0,0,0,0.02);
     }
 
-    /* Resource Box Styling from Design 2 */
     .resource-box { 
       background: var(--card-bg); 
       padding: 24px; 
@@ -112,7 +124,7 @@
 
     .resource-links {
       display: flex;
-      gap: 16px;
+      gap: 14px;
       flex-wrap: wrap;
     }
 
@@ -130,7 +142,7 @@
       background: #e0f2fe; 
     }
 
-    /* Right Column Elements - Structured Report Cards */
+    /* Right Column - Scrolling Content Cards (Aligned with Top Grid Row) */
     .content-box {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -167,32 +179,34 @@
 
     @media(max-width: 950px) {
       .project-grid { grid-template-columns: 1fr; }
-      .visual-sticky { position: static; }
+      .left-panel-fixed { position: static; max-height: none; overflow-y: visible; }
     }
   </style>
 </head>
 <body>
 
 <div class="container">
-  <!-- Blue Navigation Link from Design 2 -->
-  <a href="index.html" class="back-link">&larr; Back to Portfolio Grid</a>
-  
-  <header>
-    <h1>Discrete Operational Amplifier Design</h1>
-    <div class="tags">
-      <span class="tag">LTSpice</span>
-      <span class="tag">KiCad</span>
-      <span class="tag">Analog Design</span>
-    </div>
-  </header>
-
   <div class="project-grid">
     
-    <!-- LEFT SIDE: Media & Resource Box (Sticky Layout) -->
-    <div class="visual-sticky">
-      <img src="images/opamp_pcb.png" alt="Discrete Op-Amp Architecture Layout" class="hero-img">
+    <!-- LEFT PANEL: Header, Tags, Stacked Graphics & Source Files (Locked Position) -->
+    <div class="left-panel-fixed">
+      <a href="index.html" class="back-link">&larr; Back to Portfolio Grid</a>
       
-      <!-- Resource Window Asset Block from Design 2 -->
+      <header>
+        <h1>Discrete Operational Amplifier Design</h1>
+        <div class="tags">
+          <span class="tag">LTSpice</span>
+          <span class="tag">KiCad</span>
+          <span class="tag">Analog Design</span>
+        </div>
+      </header>
+
+      <!-- Space allocated for 2 stacked images instead of 1 -->
+      <div class="image-gallery">
+        <img src="images/opamp_pcb.png" alt="Discrete Op-Amp HW Board Assembly Layout" class="hero-img">
+        <img src="images/opamp_schematic.png" alt="Full Discrete Transistor Core Schematic Model" class="hero-img">
+      </div>
+      
       <div class="resource-box">
         <h3>Project Files & Simulation Assets</h3>
         <div class="resource-links">
@@ -202,16 +216,16 @@
       </div>
     </div>
 
-    <!-- RIGHT SIDE: Inline HTML Engineering Report -->
-    <div>
+    <!-- RIGHT PANEL: Inline Text Report Cards (Objective box sits level at the top row) -->
+    <div class="right-report-scroll">
       
-      <!-- Box 1: Objective -->
+      <!-- Objective Card Box -->
       <div class="content-box">
         <h2>Objective</h2>
         <p>To reinforce the fundamentals of analog integrated circuit design by implementing a general-purpose discrete operational amplifier. This project translated theoretical concepts from Gray & Meyer's text into a physical, testable board-level system.</p>
       </div>
 
-      <!-- Box 2: Implementation & Methodology -->
+      <!-- Implementation Details Card Box -->
       <div class="content-box">
         <h2>Implementation & Methodology</h2>
         <p>The circuit utilizes a classic topology featuring a differential input stage with an active current mirror load, followed by a high-gain common-emitter voltage amplification stage (VAS). Output buffering is managed via a complementary class-AB push-pull configuration.</p>
@@ -223,14 +237,14 @@
         </ul>
       </div>
 
-      <!-- Box 3: Challenges & Debugging Logs -->
+      <!-- Challenges & Debugging Card Box -->
       <div class="content-box">
         <h2>Challenges & Debugging</h2>
         <p>Initial evaluation iterations conducted on structural solderless breadboards exposed prominent high-frequency ground loop parasitics and transient ringing oscillations. Solderless environments proved highly susceptible to stray trace-to-trace capacitances, complicating stabilization metrics.</p>
         <p>To mitigate layout-induced variables, the design was migrated to a dedicated printed tracking configuration, executing specialized isolated analog planes and wide decoupling trace geometry to minimize supply rail impedance bounds.</p>
       </div>
 
-      <!-- Box 4: Measured Performance Benchmarks & Results -->
+      <!-- Results Card Box -->
       <div class="content-box">
         <h2>Results</h2>
         <p>Simulated tracking behaviors verified stable processing runs with an open-loop DC voltage gain benchmark of X dB alongside a phase margin threshold of Y degrees. Physical boards are ordered and awaiting structural bench validation tests on arrival.</p>
