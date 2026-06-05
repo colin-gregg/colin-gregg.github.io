@@ -3,236 +3,246 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Discrete Op Amp Design - Details</title>
+  <title>Discrete Op Amp Design — Details</title>
   <style>
     :root {
-      --bg-color: #f1f5f9; /* Updated to Design 2 Light Grey */
+      --bg-color: #f1f5f9;       /* Standardized to match the deeper clean gray background */
       --card-bg: #ffffff;
-      --text-main: #000000; /* Pure black text */
-      --text-muted: #333333; /* Darker muted text */
+      --text-main: #000000;      /* Forced all text items to pure black */
+      --text-muted: #000000;     /* Forced all text items to pure black */
       --accent-color: #6d28d9;
-      --link-blue: #0284c7;
+      --link-blue: #0284c7; 
       --theme-bg-light: #f5f3ff;
-      --card-border: #e9e3f5;
+      --card-border: #cbd5e1;
     }
 
-    body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      margin: 0;
-      background: var(--bg-color);
-      color: var(--text-main);
-      line-height: 1.6;
+    body { 
+      font-family: 'Inter', system-ui, -apple-system, sans-serif; 
+      margin: 0; 
+      background: var(--bg-color); 
+      color: var(--text-main); 
+      line-height: 1.6; 
     }
 
-    .container {
-      max-width: 1280px;
-      margin: 40px auto;
-      padding: 0 24px;
+    .container { 
+      max-width: 1240px; 
+      margin: 24px auto;         /* Shrunk from 40px to stay proportional to index page */
+      padding: 0 24px; 
     }
 
-    .back-link {
-      display: inline-block;
-      margin-bottom: 20px;
-      color: var(--link-blue);
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 15px;
+    .back-link { 
+      display: inline-block; 
+      margin-bottom: 16px; 
+      color: var(--link-blue); 
+      text-decoration: none; 
+      font-weight: 600; 
+      font-size: 15px; 
+    }
+    .back-link:hover { 
+      text-decoration: underline; 
     }
 
-    .back-link:hover {
-      text-decoration: underline;
+    header { 
+      margin-bottom: 20px; 
     }
 
-    header { margin-bottom: 24px; }
-
-    h1 {
-      margin: 0 0 12px 0;
-      font-size: 34px;
+    h1 { 
+      margin: 0 0 10px 0; 
+      font-size: 32px; 
       font-weight: 700;
       letter-spacing: -0.5px;
-      line-height: 1.2;
+      color: var(--text-main);
     }
 
-    .tags {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 0;
+    .tags { 
+      display: flex; 
+      gap: 8px; 
+      margin-bottom: 0; 
+    }
+    
+    .tag { 
+      background: #f3f0fa; 
+      color: var(--accent-color); 
+      font-size: 13px; 
+      font-weight: 600; 
+      padding: 6px 14px; 
+      border-radius: 8px; 
     }
 
-    .tag {
-      background: #f3f0fa;
-      color: var(--accent-color);
-      font-size: 13px;
-      font-weight: 600;
-      padding: 6px 14px;
-      border-radius: 8px;
-    }
-
-    /* SPLIT SYSTEM GRID */
+    /* WIDER TWO-COLUMN LAYOUT SYSTEM */
     .project-grid {
       display: grid;
-      grid-template-columns: 1.15fr 1.2fr;
+      grid-template-columns: 1.1fr 1.2fr;
       gap: 40px;
       align-items: start;
-      margin-top: 24px;
     }
 
-    /* Left Side - Locks completely fixed */
-    .left-panel-fixed {
+    /* Left Panel Side - Sticks elegantly during scroll */
+    .visual-sticky {
       position: sticky;
-      top: 40px;
-      max-height: calc(100vh - 80px);
+      top: 24px;
+      max-height: calc(100vh - 48px);
       overflow-y: auto;
       padding-right: 4px;
     }
+    .visual-sticky::-webkit-scrollbar { width: 0px; background: transparent; }
 
-    .left-panel-fixed::-webkit-scrollbar { width: 0px; background: transparent; }
-
-    /* Stacked Image Gallery */
-    .image-gallery {
+    .image-stack {
       display: flex;
       flex-direction: column;
       gap: 16px;
       margin-bottom: 24px;
     }
 
-    .hero-img {
-      width: 100%;
-      max-height: 260px;
-      object-fit: contain;
-      border-radius: 14px;
-      border: 1px solid var(--card-border);
-      background: #ffffff;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
-      /* mix-blend-mode added here as well for consistency */
-      mix-blend-mode: multiply;
+    .hero-img { 
+      width: 100%; 
+      max-height: 260px; 
+      object-fit: contain; 
+      border-radius: 14px; 
+      border: 1px solid var(--card-border); 
+      background: transparent;   /* Enabled transparency override */
+      mix-blend-mode: multiply;  /* Drops white block canvas lines in code */
     }
 
-    .resource-box {
-      background: var(--card-bg);
-      padding: 24px;
-      border-radius: 12px;
+    .resource-box { 
+      background: var(--card-bg); 
+      padding: 24px; 
+      border-radius: 12px; 
       border: 1px solid var(--card-border);
-      border-left: 5px solid var(--link-blue);
+      border-left: 5px solid var(--link-blue); 
       box-shadow: 0 4px 12px rgba(0,0,0,0.02);
     }
+    
+    .resource-box h3 {
+      margin: 0 0 12px 0;
+      font-size: 16px;
+      color: var(--text-main);
+    }
 
-    .resource-box h3 { margin: 0 0 12px 0; font-size: 16px; color: var(--text-main); }
-    
-    .resource-links { display: flex; gap: 14px; flex-wrap: wrap; }
-    
-    .resource-links a {
-      color: var(--link-blue);
-      font-weight: 600;
-      text-decoration: none;
+    .resource-links {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .resource-links a { 
+      color: var(--link-blue); 
+      font-weight: 600; 
+      text-decoration: none; 
       font-size: 14px;
       padding: 8px 14px;
       background: #f0f9ff;
       border-radius: 6px;
       transition: background 0.2s;
     }
+    .resource-links a:hover { 
+      background: #e0f2fe; 
+    }
 
-    .resource-links a:hover { background: #e0f2fe; }
-
-    /* Right Column - Scrolling Content Cards */
+    /* Right Column - Engineering Documentation Feed */
     .content-box {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 14px;
       padding: 32px;
       margin-bottom: 24px;
-      box-shadow: 0 4px 14px rgba(109, 40, 217, 0.02);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.01);
     }
 
-    .content-box h2 {
-      font-size: 20px;
+    .content-box h2 { 
+      font-size: 20px; 
       font-weight: 700;
       color: var(--text-main);
-      border-bottom: 2px solid var(--theme-bg-light);
-      padding-bottom: 10px;
+      border-bottom: 2px solid #e2e8f0; 
+      padding-bottom: 10px; 
       margin-top: 0;
-      margin-bottom: 16px;
+      margin-bottom: 16px; 
     }
 
     .content-box p, .content-box ul {
       font-size: 15px;
-      color: var(--text-muted); /* Updated to darker muted text */
+      color: var(--text-main);   /* Converted to deep black text */
       margin: 0 0 16px 0;
       line-height: 1.7;
     }
 
-    .content-box ul { padding-left: 20px; }
-    .content-box li { margin-bottom: 8px; }
+    .content-box ul {
+      padding-left: 20px;
+    }
+
+    .content-box li {
+      margin-bottom: 8px;
+    }
 
     @media(max-width: 950px) {
       .project-grid { grid-template-columns: 1fr; }
-      .left-panel-fixed { position: static; max-height: none; overflow-y: visible; }
+      .visual-sticky { position: static; max-height: none; overflow-y: visible; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="project-grid">
+
+<div class="container">
+  <div class="project-grid">
+    
+    <div class="visual-sticky">
+      <a href="index.html" class="back-link">&larr; Back to Portfolio Grid</a>
       
-      <div class="left-panel-fixed">
-        <a href="index.html" class="back-link">&larr; Back to Portfolio Grid</a>
-        
-        <header>
-          <h1>Discrete Operational Amplifier Design</h1>
-          <div class="tags">
-            <span class="tag">LTSpice</span>
-            <span class="tag">KiCad</span>
-            <span class="tag">Analog Design</span>
-          </div>
-        </header>
-
-        <div class="image-gallery">
-          <img src="images/opamp_pcb.png" alt="Discrete Op-Amp HW Board Assembly Layout" class="hero-img">
-          <img src="images/opamp_schematic.png" alt="Full Discrete Transistor Core Schematic Model" class="hero-img">
+      <header>
+        <h1>Discrete Operational Amplifier Design</h1>
+        <div class="tags">
+          <span class="tag">LTSpice</span>
+          <span class="tag">KiCad</span>
+          <span class="tag">Analog Design</span>
         </div>
+      </header>
 
-        <div class="resource-box">
-          <h3>Project Files & Simulation Assets</h3>
-          <div class="resource-links">
-            <a href="discrete_op_amp - INCOMPLETE.pdf" target="_blank">View Technical Report (PDF)</a>
-            <a href="ltspice/DISCRETE_OPAMP.asc" download>Download LTSpice Schematic</a>
-          </div>
+      <div class="image-stack">
+        <img src="images/opamp_pcb.png" alt="Discrete Op-Amp Layout" class="hero-img">
+        <img src="images/opamp_schematic.png" alt="LTSpice Schematic View" class="hero-img">
+      </div>
+      
+      <div class="resource-box">
+        <h3>Project Files & Simulation Assets</h3>
+        <div class="resource-links">
+          <a href="discrete_op_amp - INCOMPLETE.pdf" target="_blank">View Technical Report (PDF)</a>
+          <a href="ltspice/DISCRETE_OPAMP.asc" download>Download LTSpice Schematic</a>
         </div>
       </div>
+    </div>
 
-      <div class="right-report-scroll">
-        
-        <div class="content-box">
-          <h2>Objective</h2>
-          <p>To reinforce the fundamentals of analog integrated circuit design by implementing a general-purpose discrete operational amplifier. This project translated theoretical concepts from Gray & Meyer's text into a physical, testable board-level system.</p>
-        </div>
+    <div class="right-report-scroll">
+      
+      <div class="content-box">
+        <h2>Objective</h2>
+        <p>To reinforce the fundamentals of analog integrated circuit design by implementing a general-purpose discrete operational amplifier. This project translated theoretical concepts from Gray & Meyer's text into a physical, testable board-level system.</p>
+      </div>
 
-        <div class="content-box">
-          <h2>Implementation & Methodology</h2>
-          <p>The circuit utilizes a classic topology featuring a differential input stage with an active current mirror load, followed by a high-gain common-emitter voltage amplification stage (VAS). Output buffering is managed via a complementary class-AB push-pull configuration.</p>
-          <ul>
-            <li>Simulated full AC, DC, and transient stability conditions using <strong>LTSpice</strong>.</li>
-            <li>Analyzed critical operating parameters including phase margin, gain-bandwidth product (GBW), and slew rate profiles.</li>
-            <li>Captured system schematics and systematically routed a 4-layer PCB utilizing <strong>KiCad</strong>.</li>
-            <li>Implemented pole-splitting Miller compensation to enforce tight feedback stability margins across variable capacitive loading environments.</li>
-          </ul>
-        </div>
+      <div class="content-box">
+        <h2>Implementation & Methodology</h2>
+        <p>The circuit utilizes a classic topology featuring a differential input stage with an active current mirror load, followed by a high-gain common-emitter voltage amplification stage (VAS). Output buffering is managed via a complementary class-AB push-pull configuration.</p>
+        <ul>
+          <li>Simulated full AC, DC, and transient stability conditions using <strong>LTSpice</strong>.</li>
+          <li>Analyzed critical operating parameters including phase margin, gain-bandwidth product (GBW), and slew rate profiles.</li>
+          <li>Captured system schematics and systematically routed a 4-layer PCB utilizing <strong>KiCad</strong>.</li>
+          <li>Implemented pole-splitting Miller compensation to enforce tight feedback stability margins across variable capacitive loading environments.</li>
+        </ul>
+      </div>
 
-        <div class="content-box">
-          <h2>Challenges & Debugging</h2>
-          <p>Initial evaluation iterations conducted on structural solderless breadboards exposed prominent high-frequency ground loop parasitics and transient ringing oscillations. Solderless environments proved highly susceptible to stray trace-to-trace capacitances, complicating stabilization metrics.</p>
-          <p>To mitigate layout-induced variables, the design was migrated to a dedicated printed tracking configuration, executing specialized isolated analog planes and wide decoupling trace geometry to minimize supply rail impedance bounds.</p>
-        </div>
+      <div class="content-box">
+        <h2>Challenges & Debugging</h2>
+        <p>Initial evaluation iterations conducted on structural solderless breadboards exposed prominent high-frequency ground loop parasitics and transient ringing oscillations. Solderless environments proved highly susceptible to stray trace-to-trace capacitances, complicating stabilization metrics.</p>
+        <p>To mitigate layout-induced variables, the design was migrated to a dedicated printed tracking configuration, executing specialized isolated analog planes and wide decoupling trace geometry to minimize supply rail impedance bounds.</p>
+      </div>
 
-        <div class="content-box">
-          <h2>Results</h2>
-          <p>Simulated tracking behaviors verified stable processing runs with an open-loop DC voltage gain benchmark of X dB alongside a phase margin threshold of Y degrees. Physical boards are ordered and awaiting structural bench validation tests on arrival.</p>
-        </div>
-
+      <div class="content-box">
+        <h2>Results</h2>
+        <p>Simulated tracking behaviors verified stable processing runs with an open-loop DC voltage gain benchmark of X dB alongside a phase margin threshold of Y degrees. Physical boards are ordered and awaiting structural bench validation tests on arrival.</p>
       </div>
 
     </div>
   </div>
+</div>
+
 </body>
 </html>
