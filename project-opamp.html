@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Discrete Op Amp Design — Details</title>
+  <title>Discrete Op Amp Design - Details</title>
   <style>
     :root {
-      --bg-color: #f8fafc; /* Standardized to match the light grey background */
+      --bg-color: #fcfbfe;
       --card-bg: #ffffff;
       --text-main: #1a1523;
       --text-muted: #5a5266;
@@ -16,243 +16,124 @@
       --card-border: #e9e3f5;
     }
 
-    body { 
-      font-family: 'Inter', system-ui, -apple-system, sans-serif; 
-      margin: 0; 
-      background: var(--bg-color); 
-      color: var(--text-main); 
-      line-height: 1.6; 
-    }
+    body { font-family: 'Inter', system-ui, -apple-system, sans-serif; margin: 0; background: var(--bg-color); color: var(--text-main); line-height: 1.6; }
+    .container { max-width: 1240px; margin: 40px auto; padding: 0 24px; }
 
-    .container { 
-      max-width: 1280px; 
-      margin: 40px auto; 
-      padding: 0 24px; 
-    }
+    /* WIDER TWO-COLUMN SYSTEM LAYOUT */
+    .project-grid { display: grid; grid-template-columns: 1.1fr 1.2fr; gap: 40px; align-items: start; }
 
-    .back-link { 
-      display: inline-block; 
-      margin-bottom: 20px; 
-      color: var(--link-blue); 
-      text-decoration: none; 
-      font-weight: 600; 
-      font-size: 15px; 
-    }
-    .back-link:hover { 
-      text-decoration: underline; 
-    }
-
-    header { 
-      margin-bottom: 24px; 
-    }
-
-    h1 { 
-      margin: 0 0 12px 0; 
-      font-size: 34px; 
-      font-weight: 700;
-      letter-spacing: -0.5px;
-    }
-
-    .tags { 
-      display: flex; 
-      gap: 8px; 
-      margin-bottom: 0; 
-    }
-    
-    .tag { 
-      background: #f3f0fa; 
-      color: var(--accent-color); 
-      font-size: 13px; 
-      font-weight: 600; 
-      padding: 6px 14px; 
-      border-radius: 8px; 
-    }
-
-    /* SPLIT SYSTEM GRID */
-    .project-grid {
-      display: grid;
-      grid-template-columns: 1.15fr 1.2fr;
-      gap: 40px;
-      align-items: start;
-      margin-top: 24px;
-    }
-
-    /* Left Side - Locks completely fixed while right side content tracks window scrolling */
-    .left-panel-fixed {
+    /* --- LEFT COLUMN (Fully Sticky) --- */
+    .visual-sticky {
       position: sticky;
-      top: 40px;
-      max-height: calc(100vh - 80px);
-      overflow-y: auto; /* Fallback safety mechanism for small viewport windows */
-      padding-right: 4px;
+      top: 24px; /* Sticks 24px from top of viewport */
+      max-height: calc(100vh - 48px); /* Prevents cutting off content on small screens */
+      overflow-y: auto; /* Allows internal scroll if images are too tall */
+      padding-right: 8px;
+      scrollbar-width: none; /* Hides scrollbar for clean look */
     }
+    .visual-sticky::-webkit-scrollbar { display: none; }
+
+    .back-link { display: inline-block; margin-bottom: 24px; color: var(--link-blue); text-decoration: none; font-weight: 600; font-size: 15px; }
+    .back-link:hover { text-decoration: underline; }
+
+    header { margin-bottom: 24px; }
+    h1 { margin: 0 0 12px 0; font-size: 34px; font-weight: 700; letter-spacing: -0.5px; line-height: 1.2; }
     
-    /* Custom hidden scrollbar styling for left column if window layout compresses */
-    .left-panel-fixed::-webkit-scrollbar { width: 0px; background: transparent; }
+    .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+    .tag { background: #f3f0fa; color: var(--accent-color); font-size: 13px; font-weight: 600; padding: 6px 14px; border-radius: 8px; }
 
-    /* Stacked Image Gallery Frame Container */
-    .image-gallery {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      margin-bottom: 24px;
-    }
+    /* Image Stack Container */
+    .image-stack { display: flex; flex-direction: column; gap: 16px; margin-bottom: 24px; }
+    .hero-img { width: 100%; max-height: 350px; object-fit: contain; border-radius: 14px; border: 1px solid var(--card-border); background: #ffffff; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
 
-    .hero-img { 
-      width: 100%; 
-      max-height: 260px; /* Optimized image height bounds to host two graphics smoothly */
-      object-fit: contain; 
-      border-radius: 14px; 
-      border: 1px solid var(--card-border); 
-      background: #ffffff;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+    .resource-box { background: var(--card-bg); padding: 24px; border-radius: 12px; border: 1px solid var(--card-border); border-left: 5px solid var(--link-blue); box-shadow: 0 4px 12px rgba(0,0,0,0.02); margin-bottom: 24px; }
+    .resource-box h3 { margin: 0 0 12px 0; font-size: 16px; color: var(--text-main); }
+    .resource-links { display: flex; gap: 16px; flex-wrap: wrap; }
+    .resource-links a { color: var(--link-blue); font-weight: 600; text-decoration: none; font-size: 14px; padding: 8px 14px; background: #f0f9ff; border-radius: 6px; transition: background 0.2s; }
+    .resource-links a:hover { background: #e0f2fe; }
+
+    /* --- RIGHT COLUMN (Scrolling Boxes) --- */
+    .scroll-content {
+      /* This margin pushes the first box down by exactly the height of the back-link, perfectly aligning 'Objective' with the <h1> Title */
+      margin-top: 47px; 
     }
 
-    .resource-box { 
-      background: var(--card-bg); 
-      padding: 24px; 
-      border-radius: 12px; 
-      border: 1px solid var(--card-border);
-      border-left: 5px solid var(--link-blue); 
-      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
-    }
-    
-    .resource-box h3 {
-      margin: 0 0 12px 0;
-      font-size: 16px;
-      color: var(--text-main);
-    }
-
-    .resource-links {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-
-    .resource-links a { 
-      color: var(--link-blue); 
-      font-weight: 600; 
-      text-decoration: none; 
-      font-size: 14px;
-      padding: 8px 14px;
-      background: #f0f9ff;
-      border-radius: 6px;
-      transition: background 0.2s;
-    }
-    .resource-links a:hover { 
-      background: #e0f2fe; 
-    }
-
-    /* Right Column - Scrolling Content Cards (Aligned with Top Grid Row) */
-    .content-box {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 14px;
-      padding: 32px;
-      margin-bottom: 24px;
-      box-shadow: 0 4px 14px rgba(109, 40, 217, 0.02);
-    }
-
-    .content-box h2 { 
-      font-size: 20px; 
-      font-weight: 700;
-      color: var(--text-main);
-      border-bottom: 2px solid var(--theme-bg-light); 
-      padding-bottom: 10px; 
-      margin-top: 0;
-      margin-bottom: 16px; 
-    }
-
-    .content-box p, .content-box ul {
-      font-size: 15px;
-      color: #3c3545;
-      margin: 0 0 16px 0;
-      line-height: 1.7;
-    }
-
-    .content-box ul {
-      padding-left: 20px;
-    }
-
-    .content-box li {
-      margin-bottom: 8px;
-    }
+    .content-box { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 32px; margin-bottom: 24px; box-shadow: 0 4px 14px rgba(109, 40, 217, 0.02); }
+    .content-box h2 { font-size: 20px; font-weight: 700; color: var(--text-main); border-bottom: 2px solid var(--theme-bg-light); padding-bottom: 10px; margin-top: 0; margin-bottom: 16px; }
+    .content-box p, .content-box ul { font-size: 15px; color: #3c3545; margin: 0 0 16px 0; line-height: 1.7; }
+    .content-box ul { padding-left: 20px; }
+    .content-box li { margin-bottom: 8px; }
 
     @media(max-width: 950px) {
-      .project-grid { grid-template-columns: 1fr; }
-      .left-panel-fixed { position: static; max-height: none; overflow-y: visible; }
+      .project-grid { grid-template-columns: 1fr; gap: 0; }
+      .visual-sticky { position: static; max-height: none; margin-bottom: 32px; overflow-y: visible; }
+      .scroll-content { margin-top: 0; }
     }
   </style>
 </head>
 <body>
-
-<div class="container">
-  <div class="project-grid">
+  <div class="container">
     
-    <!-- LEFT PANEL: Header, Tags, Stacked Graphics & Source Files (Locked Position) -->
-    <div class="left-panel-fixed">
-      <a href="index.html" class="back-link">&larr; Back to Portfolio Grid</a>
+    <div class="project-grid">
       
-      <header>
-        <h1>Discrete Operational Amplifier Design</h1>
-        <div class="tags">
-          <span class="tag">LTSpice</span>
-          <span class="tag">KiCad</span>
-          <span class="tag">Analog Design</span>
+      <div class="visual-sticky">
+        <a href="index.html" class="back-link">&larr; Back to Portfolio Grid</a>
+        
+        <header>
+          <h1>Discrete Operational Amplifier Design</h1>
+          <div class="tags">
+            <span class="tag">LTSpice</span>
+            <span class="tag">KiCad</span>
+            <span class="tag">Analog Design</span>
+          </div>
+        </header>
+
+        <div class="image-stack">
+          <img src="images/opamp_pcb.png" alt="Discrete Op-Amp Layout" class="hero-img">
+          <img src="images/opamp_schematic.png" alt="LTSpice Schematic View" class="hero-img">
         </div>
-      </header>
 
-      <!-- Space allocated for 2 stacked images instead of 1 -->
-      <div class="image-gallery">
-        <img src="images/opamp_pcb.png" alt="Discrete Op-Amp HW Board Assembly Layout" class="hero-img">
-        <img src="images/opamp_schematic.png" alt="Full Discrete Transistor Core Schematic Model" class="hero-img">
-      </div>
-      
-      <div class="resource-box">
-        <h3>Project Files & Simulation Assets</h3>
-        <div class="resource-links">
-          <a href="discrete_op_amp - INCOMPLETE.pdf" target="_blank">View Technical Report (PDF)</a>
-          <a href="ltspice/DISCRETE_OPAMP.asc" download>Download LTSpice Schematic</a>
+        <div class="resource-box">
+          <h3>Project Files & Simulation Assets</h3>
+          <div class="resource-links">
+            <a href="discrete_op_amp - INCOMPLETE.pdf" target="_blank">View Technical Report (PDF)</a>
+            <a href="ltspice/DISCRETE_OPAMP.asc" download>Download LTSpice Schematic</a>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- RIGHT PANEL: Inline Text Report Cards (Objective box sits level at the top row) -->
-    <div class="right-report-scroll">
-      
-      <!-- Objective Card Box -->
-      <div class="content-box">
-        <h2>Objective</h2>
-        <p>To reinforce the fundamentals of analog integrated circuit design by implementing a general-purpose discrete operational amplifier. This project translated theoretical concepts from Gray & Meyer's text into a physical, testable board-level system.</p>
-      </div>
+      <div class="scroll-content">
+        
+        <div class="content-box">
+          <h2>Objective</h2>
+          <p>To reinforce the fundamentals of analog integrated circuit design by implementing a general-purpose discrete operational amplifier. This project translated theoretical concepts from Gray & Meyer's text into a physical, testable board-level system.</p>
+        </div>
 
-      <!-- Implementation Details Card Box -->
-      <div class="content-box">
-        <h2>Implementation & Methodology</h2>
-        <p>The circuit utilizes a classic topology featuring a differential input stage with an active current mirror load, followed by a high-gain common-emitter voltage amplification stage (VAS). Output buffering is managed via a complementary class-AB push-pull configuration.</p>
-        <ul>
-          <li>Simulated full AC, DC, and transient stability conditions using <strong>LTSpice</strong>.</li>
-          <li>Analyzed critical operating parameters including phase margin, gain-bandwidth product (GBW), and slew rate profiles.</li>
-          <li>Captured system schematics and systematically routed a 4-layer PCB utilizing <strong>KiCad</strong>.</li>
-          <li>Implemented pole-splitting Miller compensation to enforce tight feedback stability margins across variable capacitive loading environments.</li>
-        </ul>
-      </div>
+        <div class="content-box">
+          <h2>Implementation & Methodology</h2>
+          <p>The circuit utilizes a classic topology featuring a differential input stage with an active current mirror load, followed by a high-gain common-emitter voltage amplification stage (VAS). Output buffering is managed via a complementary class-AB push-pull configuration.</p>
+          <ul>
+            <li>Simulated full AC, DC, and transient stability conditions using <strong>LTSpice</strong>.</li>
+            <li>Analyzed critical operating parameters including phase margin, gain-bandwidth product (GBW), and slew rate profiles.</li>
+            <li>Captured system schematics and systematically routed a 4-layer PCB utilizing <strong>KiCad</strong>.</li>
+            <li>Implemented pole-splitting Miller compensation to enforce tight feedback stability margins across variable capacitive loading environments.</li>
+          </ul>
+        </div>
 
-      <!-- Challenges & Debugging Card Box -->
-      <div class="content-box">
-        <h2>Challenges & Debugging</h2>
-        <p>Initial evaluation iterations conducted on structural solderless breadboards exposed prominent high-frequency ground loop parasitics and transient ringing oscillations. Solderless environments proved highly susceptible to stray trace-to-trace capacitances, complicating stabilization metrics.</p>
-        <p>To mitigate layout-induced variables, the design was migrated to a dedicated printed tracking configuration, executing specialized isolated analog planes and wide decoupling trace geometry to minimize supply rail impedance bounds.</p>
-      </div>
+        <div class="content-box">
+          <h2>Challenges & Debugging</h2>
+          <p>Initial evaluation iterations conducted on structural solderless breadboards exposed prominent high-frequency ground loop parasitics and transient ringing oscillations. Solderless environments proved highly susceptible to stray trace-to-trace capacitances, complicating stabilization metrics.</p>
+          <p>To mitigate layout-induced variables, the design was migrated to a dedicated printed tracking configuration, executing specialized isolated analog planes and wide decoupling trace geometry to minimize supply rail impedance bounds.</p>
+        </div>
 
-      <!-- Results Card Box -->
-      <div class="content-box">
-        <h2>Results</h2>
-        <p>Simulated tracking behaviors verified stable processing runs with an open-loop DC voltage gain benchmark of X dB alongside a phase margin threshold of Y degrees. Physical boards are ordered and awaiting structural bench validation tests on arrival.</p>
+        <div class="content-box">
+          <h2>Results</h2>
+          <p>Simulated tracking behaviors verified stable processing runs with an open-loop DC voltage gain benchmark of X dB alongside a phase margin threshold of Y degrees. Physical boards are ordered and awaiting structural bench validation tests on arrival.</p>
+        </div>
+
       </div>
 
     </div>
   </div>
-</div>
-
 </body>
 </html>
