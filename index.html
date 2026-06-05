@@ -3,55 +3,56 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Colin Gregg — EE Portfolio</title>
+  <title>Colin Gregg - EE Portfolio</title>
   <style>
     /* Global Theme & Variables */
     :root {
-      --bg-color: #f1f5f9;       /* Shifted to a deeper, richer clean gray background */
+      --bg-color: #f2f6f9; /* Darker grey matching Fig 3 */
       --card-bg: #ffffff;
-      --text-main: #000000;      /* Changed all main text to pure black */
-      --text-muted: #000000;     /* Changed all muted text to pure black */
-      --accent-color: #6d28d9; 
+      --text-main: #000000; /* Pure black text */
+      --text-muted: #333333; /* Darker muted text for high contrast */
+      --accent-color: #6d28d9;
       --accent-hover: #4c1d95;
-      --theme-bg-light: #f5f3ff; 
-      --card-border: #cbd5e1;    /* Standardized border styling */
+      --theme-bg-light: #f5f3ff;
+      --card-border: #e9e3f5;
     }
 
-    body { 
-      font-family: 'Inter', system-ui, -apple-system, Arial, sans-serif; 
+    body {
+      font-family: 'Inter', system-ui, -apple-system, Arial, sans-serif;
       margin: 0;
-      background: var(--bg-color); 
-      color: var(--text-main); 
-      line-height: 1.5; 
+      background: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.5;
     }
 
-    .wrap { 
-      max-width: 1200px; 
-      margin: 16px auto;         /* Shrunk from 40px: Reduces top page margin (Blue Line) */
-      padding: 0 24px; 
+    .wrap {
+      max-width: 1200px;
+      margin: 24px auto; /* BLUE GAP: Reduced from 40px */
+      padding: 0 24px;
     }
 
-    a { 
-      color: var(--accent-color); 
-      text-decoration: none; 
-      transition: color 0.2s; 
-    }
-    a:hover { 
-      color: var(--accent-hover); 
+    a {
+      color: var(--accent-color);
+      text-decoration: none;
+      transition: color 0.2s;
     }
 
-    /* Header Profile - Highly optimized layout boundaries */
-    header { 
-      display: flex; 
-      gap: 24px; 
-      align-items: stretch; 
-      margin-bottom: 16px;       /* Shrunk from 40px: Tightens space below bio (Orange Line) */
-      padding: 16px 24px;        /* Reduced padding to maximize vertical space layout */
+    a:hover {
+      color: var(--accent-hover);
+    }
+
+    /* Header Profile */
+    header {
+      display: flex;
+      gap: 28px;
+      align-items: stretch;
+      margin-bottom: 24px; /* ORANGE GAP: Reduced from 40px */
+      padding: 20px 32px;
       background: var(--theme-bg-light);
       border-radius: 16px;
       border: 1px solid var(--card-border);
     }
-    
+
     .profile-img-container {
       flex-shrink: 0;
       display: flex;
@@ -60,147 +61,148 @@
 
     .profile-img {
       height: 100%;
-      width: auto; 
-      max-height: 100px;         /* Compact height scale for maximum screen availability */
-      border-radius: 12px; 
+      width: auto;
+      max-height: 110px;
+      border-radius: 12px;
       object-fit: cover;
-      background: #cbd5e1; 
+      background: #cbd5e1;
     }
-    
+
     .header-text {
       display: flex;
       flex-direction: column;
       justify-content: center;
     }
 
-    h1 { 
-      margin: 0 0 4px 0; 
-      font-size: 30px; 
-      font-weight: 700; 
-      letter-spacing: -0.5px; 
-      color: var(--text-main);
+    h1 {
+      margin: 0 0 6px 0;
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
     }
-    
-    p.lead { 
-      margin: 0; 
-      color: var(--text-muted); 
-      font-size: 15px; 
-      max-width: 850px; 
+
+    p.lead {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 15px;
+      max-width: 850px;
     }
-    
-    .nav-links { 
-      margin-top: 8px; 
-      font-weight: 600; 
-      font-size: 14px; 
+
+    .nav-links {
+      margin-top: 10px;
+      font-weight: 600;
+      font-size: 14px;
     }
-    .nav-links a { 
-      margin-right: 16px; 
-      color: var(--accent-color);
+
+    .nav-links a {
+      margin-right: 16px;
     }
 
     h2.section-title {
       font-size: 24px;
       font-weight: 700;
       margin-top: 0;
-      margin-bottom: 12px;       /* Shrunk from 24px: Tightens space above cards (Green Line) */
+      margin-bottom: 12px; /* GREEN GAP: Reduced from 24px */
       color: var(--text-main);
     }
 
     /* 3-Column Gallery Grid Layout */
-    .gallery { 
-      display: grid; 
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); 
-      gap: 24px; 
-      margin-bottom: 48px; 
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 24px;
+      margin-bottom: 64px;
     }
 
-    /* Project Cards with CRT Hover Highlight */
-    .card { 
-      background: var(--card-bg); 
-      border-radius: 16px; 
-      overflow: hidden; 
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.02); 
-      transition: transform 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease; 
-      display: flex; 
-      flex-direction: column; 
-      text-decoration: none; 
-      color: inherit; 
-      border: 1px solid var(--card-border); 
+    /* Project Cards */
+    .card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 14px rgba(109, 40, 217, 0.03);
+      transition: transform 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+      border: 1px solid var(--card-border);
     }
-    
-    .card:hover { 
-      transform: translateY(-5px); 
-      background-color: #f0fdfa; /* CRT green/turquoise highlight color */
-      box-shadow: 0 12px 24px rgba(20, 184, 166, 0.18); 
-      border-color: #99f6e4; 
-      cursor: pointer; 
+
+    .card:hover {
+      transform: translateY(-5px);
+      background-color: #f0fdfa;
+      box-shadow: 0 12px 24px rgba(20, 184, 166, 0.18);
+      border-color: #99f6e4;
+      cursor: pointer;
     }
 
     .card-img-wrapper {
-      padding: 14px 14px 0 14px; 
-      background: var(--theme-bg-light); 
+      padding: 14px 14px 0 14px;
+      background: var(--theme-bg-light);
       border-bottom: 1px solid var(--card-border);
       transition: background-color 0.25s ease;
     }
+
     .card:hover .card-img-wrapper {
-      background: #ccfbf1; 
-    }
-    
-    .proj-img {
-      width: 100%;
-      height: 170px; 
-      object-fit: contain; 
-      border-radius: 10px; 
-      background: transparent;   /* Changed from #ffffff to enable transparency blending */
-      mix-blend-mode: multiply;  /* CSS Code solution: eliminates white background outlines */
+      background: #ccfbf1;
     }
 
-    .card-content { 
-      padding: 24px; 
-      flex-grow: 1; 
-      display: flex; 
-      flex-direction: column; 
+    .proj-img {
+      width: 100%;
+      height: 170px;
+      object-fit: contain;
+      border-radius: 10px;
+      /* mix-blend-mode removes white backgrounds via CSS */
+      mix-blend-mode: multiply; 
     }
-    
-    .card-content h3 { 
-      margin: 0 0 10px 0; 
-      font-size: 20px; 
-      color: var(--text-main); 
+
+    .card-content {
+      padding: 24px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-content h3 {
+      margin: 0 0 10px 0;
+      font-size: 20px;
+      color: var(--text-main);
       font-weight: 700;
     }
-    
-    .card-content p { 
-      margin: 0 0 20px 0; 
-      font-size: 14px; 
-      color: var(--text-muted); 
-      flex-grow: 1; 
+
+    .card-content p {
+      margin: 0 0 20px 0;
+      font-size: 14px;
+      color: var(--text-muted);
+      flex-grow: 1;
       line-height: 1.6;
     }
 
-    .tags { 
-      display: flex; 
-      flex-wrap: wrap; 
-      gap: 6px; 
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
       margin-bottom: 16px;
     }
-    
-    .tag { 
-      background: #f3f0fa; 
-      color: var(--accent-color); 
-      font-size: 12px; 
-      font-weight: 600; 
-      padding: 4px 12px; 
-      border-radius: 8px; 
+
+    .tag {
+      background: #f3f0fa;
+      color: var(--accent-color);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 8px;
     }
 
     .view-details {
       font-size: 14px;
       font-weight: 600;
-      color: #0056b3; 
+      color: #0056b3;
       margin-top: auto;
       display: flex;
       align-items: center;
     }
+
     .card:hover .view-details {
       text-decoration: underline;
     }
@@ -232,114 +234,115 @@
 
     @media(max-width: 850px) {
       header { flex-direction: column; text-align: center; gap: 16px; align-items: center; }
-      .profile-img { height: 100px; width: auto; }
+      .profile-img { height: 110px; width: 110px; }
       .gallery { grid-template-columns: 1fr; }
+      footer { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
-
-<div class="wrap">
-  <header>
-    <div class="profile-img-container">
-      <img src="images/profile.jpg" alt="Colin Gregg" class="profile-img">
-    </div>
-    <div class="header-text">
-      <h1>Colin Gregg</h1>
-      <p class="lead">Electrical Engineering graduate specializing in analog / mixed-signal hardware design. Bridging the gap between fundamental device physics and modern system-level integration.</p>
-      <div class="nav-links">
-        <a href="https://github.com/colin-gregg/colin-gregg.github.io/tree/main" target="_blank">GitHub</a> |
-        <a href="https://www.linkedin.com/in/colin-gregg" target="_blank">LinkedIn</a> |
-        <a href="resume.pdf" target="_blank">Resume (PDF)</a>
+  <div class="wrap">
+    
+    <header>
+      <div class="profile-img-container">
+        <img src="images/headshot.jpg" alt="Colin Gregg" class="profile-img">
       </div>
-    </div>
-  </header>
-
-  <main>
-    <h2 class="section-title">Selected Projects</h2>
-    <div class="gallery">
-      
-      <a href="project-opamp.html" class="card">
-        <div class="card-img-wrapper">
-          <img src="images/opamp_pcb.png" alt="discrete op-amp pcb" class="proj-img">
+      <div class="header-text">
+        <h1>Colin Gregg</h1>
+        <p class="lead">Electrical Engineering graduate specializing in analog / mixed-signal hardware design. Bridging the gap between fundamental device physics and modern system-level integration.</p>
+        <div class="nav-links">
+          <a href="https://github.com/colin-gregg/colin-gregg.github.io/tree/main" target="_blank">GitHub</a> |
+          <a href="https://www.linkedin.com/in/colin-gregg" target="_blank">LinkedIn</a> |
+          <a href="resume.pdf" target="_blank">Resume (PDF)</a>
         </div>
-        <div class="card-content">
-          <h3>Discrete Op Amp Design</h3>
-          <p>Designed and simulated a general-purpose discrete operational amplifier to reinforce analog fundamentals. Currently awaiting 4-layer PCB fabrication.</p>
-          <div class="tags">
-            <span class="tag">LTSpice</span>
-            <span class="tag">KiCad</span>
-            <span class="tag">PCB Design</span>
+      </div>
+    </header>
+
+    <main>
+      <h2 class="section-title">Selected Projects</h2>
+      <div class="gallery">
+        
+        <a href="project-opamp.html" class="card">
+          <div class="card-img-wrapper">
+            <img src="images/opamp_pcb.png" alt="discrete op-amp pcb" class="proj-img">
           </div>
-          <div class="view-details">View Project Details &rarr;</div>
-        </div>
-      </a>
-
-      <a href="project-dsp.html" class="card">
-        <div class="card-img-wrapper">
-          <img src="images/dsp.png" alt="power spectral density plot" class="proj-img">
-        </div>
-        <div class="card-content">
-          <h3>Digital Signal Processing</h3>
-          <p>Implemented FIR/IIR filters, Fast Fourier Transforms, and calculated power spectral density from autocorrelation functions in MATLAB.</p>
-          <div class="tags">
-            <span class="tag">MATLAB</span>
-            <span class="tag">Algorithms</span>
-            <span class="tag">Signal Analysis</span>
+          <div class="card-content">
+            <h3>Discrete Op Amp Design</h3>
+            <p>Designed and simulated a general-purpose discrete operational amplifier to reinforce analog fundamentals. Currently awaiting 4-layer PCB fabrication.</p>
+            <div class="tags">
+              <span class="tag">LTSpice</span>
+              <span class="tag">KiCad</span>
+              <span class="tag">PCB Design</span>
+            </div>
+            <div class="view-details">View Project Details &rarr;</div>
           </div>
-          <div class="view-details">View Project Details &rarr;</div>
-        </div>
-      </a>
+        </a>
 
-      <a href="project-vlsi.html" class="card">
-        <div class="card-img-wrapper">
-          <img src="images/vlsi.png" alt="binary division algorithm layout" class="proj-img">
-        </div>
-        <div class="card-content">
-          <h3>VLSI Layout & Logic Design</h3>
-          <p>Implemented a serial adder using shift registers and a binary division algorithm utilizing custom muxes and carry-ripple adders.</p>
-          <div class="tags">
-            <span class="tag">Cadence Virtuoso</span>
-            <span class="tag">Cell Layout</span>
+        <a href="project-dsp.html" class="card">
+          <div class="card-img-wrapper">
+            <img src="images/dsp.png" alt="power spectral density plot" class="proj-img">
           </div>
-          <div class="view-details">View Project Details &rarr;</div>
-        </div>
-      </a>
-
-      <a href="project-riscv.html" class="card">
-        <div class="card-img-wrapper">
-          <img src="images/riscv.png" alt="synthesized RTL schematic" class="proj-img">
-        </div>
-        <div class="card-content">
-          <h3>RISC-V Control Unit</h3>
-          <p>Synthesized an RTL implementation of a single-cycle control unit. Performed static timing analysis and generated full coverage reports.</p>
-          <div class="tags">
-            <span class="tag">SystemVerilog</span>
-            <span class="tag">Synopsys</span>
-            <span class="tag">STA</span>
+          <div class="card-content">
+            <h3>Digital Signal Processing</h3>
+            <p>Implemented FIR/IIR filters, Fast Fourier Transforms, and calculated power spectral density from autocorrelation functions in MATLAB.</p>
+            <div class="tags">
+              <span class="tag">MATLAB</span>
+              <span class="tag">Algorithms</span>
+              <span class="tag">Signal Analysis</span>
+            </div>
+            <div class="view-details">View Project Details &rarr;</div>
           </div>
-          <div class="view-details">View Project Details &rarr;</div>
-        </div>
-      </a>
+        </a>
 
-    </div>
-  </main>
+        <a href="project-vlsi.html" class="card">
+          <div class="card-img-wrapper">
+            <img src="images/vlsi.png" alt="binary division algorithm layout" class="proj-img">
+          </div>
+          <div class="card-content">
+            <h3>VLSI Layout & Logic Design</h3>
+            <p>Implemented a serial adder using shift registers and a binary division algorithm utilizing custom muxes and carry-ripple adders.</p>
+            <div class="tags">
+              <span class="tag">Cadence Virtuoso</span>
+              <span class="tag">Cell Layout</span>
+            </div>
+            <div class="view-details">View Project Details &rarr;</div>
+          </div>
+        </a>
 
-  <footer>
-    <div>
-      <h3>Contact Information</h3>
-      <p><strong>Email:</strong> <br><a href="mailto:colingregg03@gmail.com">colingregg03@gmail.com</a></p>
-    </div>
-    <div>
-      <h3>Simulation Files</h3>
-      <p>Download raw simulation and configuration assets directly inside individual project detail pages, or access the shared <a href="ltspice/" target="_blank">LTSpice Source Folder</a>.</p>
-    </div>
-    <div>
-      <h3>Technical Reports</h3>
-      <p>Comprehensive engineering design data, formulas, and structural validation logs are written inline directly on the respective project sub-pages.</p>
-    </div>
-  </footer>
-</div>
+        <a href="project-riscv.html" class="card">
+          <div class="card-img-wrapper">
+            <img src="images/riscv.png" alt="synthesized RTL schematic" class="proj-img">
+          </div>
+          <div class="card-content">
+            <h3>RISC-V Control Unit</h3>
+            <p>Synthesized an RTL implementation of a single-cycle control unit. Performed static timing analysis and generated full coverage reports.</p>
+            <div class="tags">
+              <span class="tag">SystemVerilog</span>
+              <span class="tag">Synopsys</span>
+              <span class="tag">STA</span>
+            </div>
+            <div class="view-details">View Project Details &rarr;</div>
+          </div>
+        </a>
 
+      </div>
+    </main>
+
+    <footer>
+      <div>
+        <h3>Contact Information</h3>
+        <p><strong>Email:</strong> <br><a href="mailto:colingregg03@gmail.com">colingregg03@gmail.com</a></p>
+      </div>
+      <div>
+        <h3>Simulation Files</h3>
+        <p>Download raw simulation and configuration assets directly inside individual project detail pages, or access the shared <a href="ltspice/" target="_blank">LTSpice Source Folder</a>.</p>
+      </div>
+      <div>
+        <h3>Technical Reports</h3>
+        <p>Comprehensive engineering design data, formulas, and structural validation logs are written inline directly on the respective project sub-pages.</p>
+      </div>
+    </footer>
+
+  </div>
 </body>
 </html>
