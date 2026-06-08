@@ -132,10 +132,10 @@
         </div>
 
         <div class="content-box">
-          <h2>PCB Design &amp; Layout Optimization</h2>
-          <p><strong> The REV A development board used 2-layers because it was relatively simple to route, however, to ensure minimal distortion on the limiter circuit I will use 4-layers on REV B and strategic copper ground pours near its input node to reduce fast transient distortion.</p>
+          <h2>PCB Design</h2>
           <p><strong>Parasitic Capacitance Mitigation:</strong> The AD8277 utilizes internal feedback loops driven by its non-inverting input nodes making these traces extremely high-impedance paths. To reduce board-level parasitic capacitance and minimize  circuit instability I will insulate these pins with a copper-pullback zone and maintain bare FR4 fiberglass substrate around the high impedance nodes.</p>
           <p><strong>General Rules:</strong> The second layer of the REV A board is a completely uninterrupted copper ground pour with no signal or power traces being routed on the second layer. Bulk electrolytic and low-ESR ceramic capacitors are used for power supply decoupling, and 0603 imperial unit SMD passive components were used to save on the board size. REV B will have 9 less discrete passive components and 2 less integrated circuit chips than REV A, decreasing board space even more, and using 4-layers will drastically ease the routing for the dual-power supply traces.</p>
+		  <p><strong> Next Iteration:</strong> The REV A development board used 2-layers because it was relatively simple to route, however, to ensure minimal distortion on the limiter circuit I will use 4-layers on REV B and strategic copper ground pours near its input node to reduce fast transient distortion.</p>
         </div>
 
       </div>
