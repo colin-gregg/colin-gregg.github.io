@@ -185,22 +185,20 @@
           <img src="images/capstone/capstone_receiver_lna.png" alt="Receiver LNA Topology" class="content-img">
           
           <p><strong>Instrumentation Amplifier (INA217):</strong><br>
-          Output of each hydrophone receiver is a differential twisted pair to reduce EMI interference between receiver array and the LNA boards.<br><br>
-          The instrumentation amplifier subtracts the two inputs to cancel out common noise and provides +26dB of gain to immediately boost the SNR.</p>
+          The output of each hydrophone receiver is a differential twisted pair to reduce EMI interference between the receiver array and the LNA boards. The instrumentation amplifier subtracts the two inputs to cancel out common noise and provides +26dB of gain to immediately boost the SNR.</p>
 
           <p><strong>2nd Order Bandpass Filter (ADA4841-1):</strong><br>
-          The MUSIC algorithm uses phased-based direction finding which means that inter-channel phase delay should be as close to identical as possible.<br><br>
+          The MUSIC algorithm uses phased-based direction finding which means that inter-channel phase delays should be as close to identical as possible.<br><br>
           Two steps were taken to ensure this: a Bessel response filter was used to minimize non-linear group delay effects and a Sallen-Key topology was used to minimize the number of external components needed thereby reducing component tolerance errors between channels.</p>
 
           <p><strong>VCA (VCA810):</strong><br>
-          Other options for voltage control I looked at included an op-amp with a digital potentiometer, but this would create a stepped response introducing harsh noise into the low noise system, and a digitally-controlled Programmable Gain Amplifier, but its changing discrete gain states would shift its closed-loop pole locations and therefore change the phase response whenever gain adjusts.<br><br>
-          Instead I chose to use a continuous-time voltage-controlled gain adjustment.<br><br>
+          Other options for voltage control I looked at included an op-amp with a digital potentiometer, but this would create a stepped response introducing harsh noise into the low noise system, and a digitally-controlled Programmable Gain Amplifier, but its changing discrete gain states would shift its closed-loop pole locations and therefore change the phase response whenever gain adjusts. A continuous-time voltage-controlled gain adjustment would provide the best method to correct gain without adding distortion.<br><br>
           The VCA810 was chosen because it can maintain a stable frequency response across its entire 80 dB gain range, preserving channel-to-channel phase response.<br><br>
-          By taking an analog voltage as its control input, we can vary the gain using our existing microcontroller via an SPI signal that is converted by an external DAC.</p>
+          By taking an analog voltage as its control input, the gain can be varied using the existing microcontroller in the system via an SPI signal that is converted by an external DAC to an analog voltage.</p>
 
           <p><strong>8th Order Bandpass Filter (LTC1562-2):</strong><br>
           8th-order Cascaded Sallen-Key or Multiple Feedback filters require dozens of high-precision discrete components, and even a minor 1% component tolerance mismatch across four receiver channels can generate uncorrectable channel-to-channel phase errors.<br><br>
-          The LTC1562 is a true continuous-time active RC filter network and does not utilize a clock, which allows it to have an ultra-low noise floor and zero high-frequency clock feedthrough or aliasing artifacts.<br><br>
+          The LTC1562 is a true continuous-time active RC filter network that does not utilize a clock, which allows it to have an ultra-low noise floor and zero high-frequency clock feedthrough or aliasing artifacts.<br><br>
           It also has a laser-trimmed center frequency to within 0.5% to ensure inter-channel accuracy.<br><br>
           The 8th-order bandpass filter was designed to be an elliptic Bessel filter to maximize the attenuation of low frequency signals and second and third order harmonics of the transmitted signals.</p>
 
@@ -223,12 +221,12 @@
           The 2nd-order bandpass filter is configured as a non-inverting amplifier, however, the original design had no copper pullback near the extremely high impedance input node. Also, the filter had been designed for a very high Q-factor, all of which lead to large amounts of parasitic capacitance shunting the signal immediately to ground. Since no signal would appear on the PCB after the instrumentation amplifier stage this made troubleshooting very difficult and time consuming. Similar issues occurred with the 8th order bandpass filter.</p>
 
           <h3>Testing:</h3>
-          <p><strong>SPI-to-DAC Race Condition</strong><br>
-          For each channel I needed to measure on the 'scope the phase delay added by the receivers themselves as well as each stage of the LNA. By doing this I could then hardcode in the software algorithm a calibration for each board to account for the delays. Luckily there was almost no relative difference between the boards due to all the precautions taken to mitigate non-linear phase distortion.</p>
+          <p>For each channel I needed to measure on the 'scope the phase delay added by the receivers themselves as well as each stage of the LNA. By doing this I could then hardcode in the software algorithm a calibration for each board to account for the delays. Luckily there was almost no relative difference between the boards due to all the precautions taken to mitigate non-linear phase distortion.</p>
           
           <p><strong>Multipath Echoes</strong><br>
           In order for the MUSIC direction-of-arrival algorithm to produce correct mathematical results, it is imperative that the incoming signal does not contain any correlated elements. In the case of underwater acoustic signals within our pool testing environment, these correlated elements manifest themselves as massive multipath echoes caused by the acoustic signals reflecting off the pool walls. Because the algorithm immediately breaks down when these correlated reflection signals overlap the true source signal, capturing data at the exact right moment before the echoes arrive was absolutely critical.<br><br>
-          To solve this, I designed a dedicated hardware Edge Detector project to rapidly trigger the ADC capture within 100 µs of the signal's arrival. Furthermore, as a firmware-based mitigation strategy, we utilized an energy-detection algorithm to parse the ADC buffer for the signal's rising edge. Since multipath reflections severely corrupted the data window, our ultimate solution to verify system logic was to take 30 rapid, small spatial samples instead of 1 long continuous sample. This allowed us to evaluate the data locally on a computer to confirm the system's directional accuracy despite the extreme reflections.</p>
+          To solve this, we first tried implementing a digital energy-detection algorithm to parse the ADC buffer for the signal's rising edge. This method would take over 200 µs leaving less than 100 µs for data to be collected before the signal would become corrupted. This small time window lead to unreliable results when testing in the pool; although, the results were reliable in a small tank used for testing in lab. Another method we implemented for our pool testing results was to take 30 rapid samples throughout the entire transmitted pulse duration and run the collected data through a spacial smoothing algorithm on a local computer. This required us to manually sort through the collected samples before running the algorithm, so while it worked for testing the system it is not a final working method.<br></br>
+		  Lastly, I began designing a dedicated analog Edge Detector project to rapidly trigger the ADC capture within 100 µs of the signal's arrival. The current iteration of this project latches onto the rising edge of the incoming signal within 75 µs, in simulation. A PCB has been designed and is ordered, however, I do not currently have equipment to test it.</p>
         </div>
 
         <div class="content-box">
@@ -248,10 +246,8 @@
 
         <div class="content-box">
           <h2>Future Steps</h2>
-          <p><strong>Better Power Supplies:</strong> Isolated power supplies (multiple batteries) and physically isolated ground planes are needed on the power amp board to protect the analog signals. Less switching noise requires a better pi filter and LDOs meant specifically for a 300 kHz switching frequency. We also need to make dedicated boards for power with proper, locking physical connectors.<br><br>
-          <strong>Fix DAC Layout:</strong> Ensure signal integrity and resolve communication bugs related to trace routing to the DAC.<br><br>
+          <p><strong>Better Power Supplies:</strong> Isolated power supplies (multiple batteries) and physically isolated ground planes are needed on the power amp board to properly isolated digital and sensitive analog traces from the fast-switching high-power nodes of the Class D Amplifier. <br></br> Dedicated power boards that implement a less noisy switching power supply and have a better pi filter and LDOs meant specifically for the switching frequency of the buck converter would greatly reduce noise on the DC power supplies.<br><br>
           <strong>Mechanical Integration:</strong> The receiver system must be integrated into the existing electronics infrastructure, and the hydrophone array needs to be mechanically redesigned to securely mount to the front of the drone's frame. Additionally, the electronics for the pinger need to be enclosed in a customized, watertight vessel for untethered underwater deployment.<br><br>
-          <strong>Software & Autonomy:</strong> Moving forward, incorporating more modern C++ features and an object-oriented hardware-abstraction layer could result in a more readable, maintainable codebase. Finally, the system needs to be tested with two pingers transmitting simultaneously to validate the MUSIC algorithm's multi-source tracking, and the resulting DOA estimates must be integrated directly into the AUV's main autonomy stack.</p>
         </div>
 
       </div>
