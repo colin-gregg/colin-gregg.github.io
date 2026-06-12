@@ -113,23 +113,23 @@
           <h2>Implementation & Methodology</h2>
           <p>The circuit utilizes a classic topology featuring a differential input stage with an active current mirror load, followed by a high-gain common-emitter voltage amplification stage (VAS). Output buffering is managed via a complementary class-AB push-pull configuration.</p>
           <ul>
-            <li>Simulated full AC, DC, and transient stability conditions using <strong>LTSpice</strong>.</li>
+            <li>Simulated full AC, DC, and transient stability conditions using LTSpice.</li>
             <li>Analyzed critical operating parameters including phase margin, gain-bandwidth product (GBW), and slew rate profiles.</li>
-            <li>Captured system schematics and systematically routed a 4-layer PCB utilizing <strong>KiCad</strong>.</li>
-            <li>Implemented pole-splitting Miller compensation to enforce tight feedback stability margins across variable capacitive loading environments.</li>
+            <li>Captured system schematics and systematically routed a 4-layer PCB utilizing KiCad.</li>
+            <li>Implemented pole-splitting Miller compensation to enforce tight feedback stability margins after issues with oscillations during lab testing.</li>
           </ul>
         </div>
 
         <div class="content-box">
           <h2>Challenges & Debugging</h2>
-          <p>Initial evaluation iterations conducted on structural solderless breadboards exposed prominent high-frequency ground loop parasitics and transient ringing oscillations. Solderless environments proved highly susceptible to stray trace-to-trace capacitances, complicating stabilization metrics.</p>
-          <p>To mitigate layout-induced variables, the design was migrated to a dedicated printed tracking configuration, executing specialized isolated analog planes and wide decoupling trace geometry to minimize supply rail impedance bounds.</p>
+          <p>The initial evaluation was done on a solderless breadboard which ran into high frequency noise and transient ringing oscillations due to parasitics destroying the op amp's phase margin.</p>
+          <p>To mitigate these issues, a dedicated 2-layer PCB was designed with additional decoupling capacitors to improve PSSR and special attention paid to the feedback trace to minize its loop area and inductance.</p>
         </div>
 
-        <div class="content-box">
+        <script> /*<div class="content-box">
           <h2>Results</h2>
           <p>Simulated tracking behaviors verified stable processing runs with an open-loop DC voltage gain benchmark of X dB alongside a phase margin threshold of Y degrees. Physical boards are ordered and awaiting structural bench validation tests on arrival.</p>
-        </div>
+        </div> */</script>
 
       </div>
 
